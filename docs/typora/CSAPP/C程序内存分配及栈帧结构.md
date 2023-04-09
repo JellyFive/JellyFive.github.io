@@ -141,7 +141,7 @@ _总的来说_
 
 下图主要描述的是过程 P 调用过程 Q，后面将过程理解为函数调用。后续的几个小节都是围绕这个图展开。
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408183319.png)" style="zoom:33%;" />
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408183319.png)
 
 从图中可以看到 Q 在执行的时候，P 的信息以及向上追溯到 P 的函数调用过程都是被暂时挂起的。Q 只需为自己的局部变量分配新的存储空间，或者去调用其他的函数，当 Q 返回的时候这些存储空间会被释放。（这里其实是一个先进后出的过程，可以回想一下栈的数据结构）
 
@@ -159,7 +159,7 @@ _总的来说_
 
 multstroe 和 main 函数的反汇编代码。（objdump 可以反汇编 c 代码）
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408183319.png)"/>
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408193938.png)
 
 1. `callq`指令的地址为 0x400563，从 a）图看到指明了此时%rip 和%rsp 的值
 2. 调用`callq`后，返回地址 0x400568 被压入栈，且%rip 指向了 0x40050，也就是 mulstore 的第一条指令
@@ -177,7 +177,7 @@ multstroe 和 main 函数的反汇编代码。（objdump 可以反汇编 c 代�
 
 这里也涉及到了不同字节数的整型和指针的存储，每个指针是 8 字节。
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194033.png)" style="zoom:33%;" />
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194033.png)
 
 从图中可以看出前 6 个参数实际上是通过寄存器传递的，后面两个 a4 和\*a4p 通过栈传递。`movq 16(%rsp),%rax`用于获取 a4p。这里也涉及到一个知识点：函数参数是从右向左压栈。
 
@@ -197,7 +197,8 @@ multstroe 和 main 函数的反汇编代码。（objdump 可以反汇编 c 代�
 
 结合数据传送部分的例子举个例子。
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194112.png)" />
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194112.png)
+
 图b)中是call_proc的汇编代码，其中2~15行都是在调用proc做准备，包括为局部参数和函数调用的参数建立栈帧。从这个函数能看到，有x1~x4四个局部变量，然后在调用proc的时候用到了这四个局部变量的地址，因此需要为他们分配内存。
 
 3~6 行是在为变量赋值。7,10,12,14 是生成对应的位置的指针。从图 33 看到，在栈上为 x1~x4 分配了内存，这个是按照字节大小排列的。然后参数 7 和参数 8 表示要传递给 proc 的两个局部变量。**（为啥是两个呢？因为其余的 6 个参数是存在寄存器中的，这个不要忘了）**
@@ -279,7 +280,7 @@ _main:                                  ## @main
 
 示意图，示意图没有按照字节来排序，只是为了表明栈指针的存储。如下：
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194243.png)" style="zoom:50%;"/>
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194243.png)
 
 ```c
 _ADD:                                   ## @ADD
@@ -298,7 +299,7 @@ _ADD:                                   ## @ADD
 
 示意图如下：
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194303.png)" alt="image-20220421220604943" style="zoom:50%;" />
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194303.png
 
 **rsp 寄存器的值一直在变（随着局部变量、临时变量等的加入），rbp 寄存器的值在本次函数栈帧中一直保持不变，且始终都是被调函数栈帧的栈底。**
 
@@ -306,7 +307,7 @@ _ADD:                                   ## @ADD
 
 假设一个函数的调用顺序为：`main(...) ->; func_1(...) ->; func_2(...) ->; func_3(...)`，当其被操作系统调入内存运行，对应的进程在内存中的映射为：
 
-<img src="![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194321.png)" style="zoom:50%;" />
+![](https://gitee.com/jellyfive/blog-image/raw/master/image/20230408194321.png)
 
 随着函数调用层数的增加，函数栈帧是一块块地向内存低地址方向延伸的。
 
