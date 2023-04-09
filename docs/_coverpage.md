@@ -9,8 +9,8 @@
 - CSAPP 学习笔记
 - 软考知识点（软件设计师）
 
-[GitHub](#https://github.com/JellyFive)
-[GitHub](#https://gitee.com/jellyfive)
+[GitHub](https://github.com/JellyFive)
+[Get Started](#docsify)
 
 <!-- 背景图片 -->
 
